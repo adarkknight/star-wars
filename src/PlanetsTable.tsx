@@ -9,24 +9,46 @@ interface Planet {
   surface_water: string;
 }
 
-interface Data {
+interface Data<T> {
   next: string;
   previous: string;
-  results: Planet[];
+  results: T;
 }
 
 import Button from "./components/Button";
+import { useState } from "react";
 import { useFetch } from "./hooks/fetchData";
 import { getPlanetData } from "./services/getPlanetData";
 
+export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return await response.json();
+};
 const PlanetsTable: React.FC = () => {
-  const { isFetching, error, data, setData, setError } =
-    useFetch<Data>(getPlanetData);
+  const [url, setUrl] = useState("http://swapi.dev/api/planets");
+
+  const { isFetching, error, data } = useFetch<Data<Planet[]>>(() =>
+    fetchData(url)
+  );
+
+  const handlePrevClick = async () => {
+    if (data?.previous) {
+      setUrl(data.previous);
+    }
+  };
+
+  const handleNextClick = async () => {
+    if (data?.next) {
+      setUrl(data.next);
+    }
+  };
 
   if (isFetching)
     return <span className="loading loading-ring loading-xs"></span>;
   if (error) return <div>Error: {error}</div>;
-
   console.log("this is data", data);
   return (
     <>
@@ -35,11 +57,6 @@ const PlanetsTable: React.FC = () => {
           {/* head */}
           <thead>
             <tr>
-              {/* {data?.results.map((planet, index) => (
-                <th className="text-wrap" key={index}>
-                  {Object.keys(planet)}
-                </th>
-              ))} */}
               <th>Name</th>
               <th>Climate</th>
               <th>Diameter</th>
@@ -71,7 +88,7 @@ const PlanetsTable: React.FC = () => {
           <Button onClick={() => console.log("I was clicked!")} text="Prev" />
         </div>
         <div>
-          <Button onClick={() => console.log("I was clicked!")} text="Next" />
+          <Button onClick={handleNextClick} text="Next" />
         </div>
       </div>
     </>

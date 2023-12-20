@@ -18,8 +18,8 @@ interface Planet {
     results: Planet[];
   }
 
-export const getPlanetData = async (): Promise<Data> =>{
-     const response = await fetch('http://swapi.dev/api/planets');
+export const getPlanetData = async (url: string): Promise<Data> =>{
+     const response = await fetch(url);
      if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
      }
