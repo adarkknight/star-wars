@@ -16,7 +16,7 @@ interface Data<T> {
 }
 
 import Button from "./components/Button";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useFetch } from "./hooks/fetchData";
 import { getPlanetData } from "./services/getPlanetData";
 
@@ -29,10 +29,9 @@ export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
 };
 const PlanetsTable: React.FC = () => {
   const [url, setUrl] = useState("http://swapi.dev/api/planets");
+  const makeRequest = useCallback(() => fetchData<Planet[]>(url), [url]);
 
-  const { isFetching, error, data } = useFetch<Data<Planet[]>>(() =>
-    fetchData(url)
-  );
+  const { isFetching, error, data } = useFetch<Data<Planet[]>>(makeRequest);
 
   const handlePrevClick = async () => {
     if (data?.previous) {
@@ -85,7 +84,7 @@ const PlanetsTable: React.FC = () => {
       </div>
       <div className="flex items-center justify-center mt-5 bg-slate-600">
         <div>
-          <Button onClick={() => console.log("I was clicked!")} text="Prev" />
+          <Button onClick={handlePrevClick} text="Prev" />
         </div>
         <div>
           <Button onClick={handleNextClick} text="Next" />
