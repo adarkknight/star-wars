@@ -18,7 +18,6 @@ interface Data<T> {
 import Button from "./components/Button";
 import { useState, useCallback } from "react";
 import { useFetch } from "./hooks/fetchData";
-import { getPlanetData } from "./services/getPlanetData";
 
 export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
   const response = await fetch(url);
@@ -30,9 +29,12 @@ export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
 const PlanetsTable: React.FC = () => {
   const [url, setUrl] = useState("http://swapi.dev/api/planets");
   const makeRequest = useCallback(() => fetchData<Planet[]>(url), [url]);
+  const [disabled, setDisabled] = useState(false);
 
   const { isFetching, error, data } = useFetch<Data<Planet[]>>(makeRequest);
-
+  //   if (!data?.next || !data?.previous) {
+  //     setDisabled(true);
+  //   }
   const handlePrevClick = async () => {
     if (data?.previous) {
       setUrl(data.previous);
@@ -48,7 +50,7 @@ const PlanetsTable: React.FC = () => {
   if (isFetching)
     return <span className="loading loading-ring loading-xs"></span>;
   if (error) return <div>Error: {error}</div>;
-  console.log("this is data", data);
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -84,10 +86,18 @@ const PlanetsTable: React.FC = () => {
       </div>
       <div className="flex items-center justify-center mt-5 bg-slate-600">
         <div>
-          <Button onClick={handlePrevClick} text="Prev" />
+          <Button
+            onClick={handlePrevClick}
+            text="Prev"
+            disabled={!data?.previous}
+          />
         </div>
         <div>
-          <Button onClick={handleNextClick} text="Next" />
+          <Button
+            onClick={handleNextClick}
+            text="Next"
+            disabled={!data?.next}
+          />
         </div>
       </div>
     </>
