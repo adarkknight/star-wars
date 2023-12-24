@@ -26,15 +26,15 @@ export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
   }
   return await response.json();
 };
-const PlanetsTable: React.FC = () => {
-  const [url, setUrl] = useState("http://swapi.dev/api/planets");
+const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
+
+const PlanetsTable = () => {
+  const [url, setUrl] = useState(`${baseUrl}planets`);
   const makeRequest = useCallback(() => fetchData<Planet[]>(url), [url]);
   const [disabled, setDisabled] = useState(false);
 
   const { isFetching, error, data } = useFetch<Data<Planet[]>>(makeRequest);
-  //   if (!data?.next || !data?.previous) {
-  //     setDisabled(true);
-  //   }
+
   const handlePrevClick = async () => {
     if (data?.previous) {
       setUrl(data.previous);
@@ -84,7 +84,7 @@ const PlanetsTable: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-center mt-5 bg-slate-600">
+      <div className="flex items-center justify-center mt-5">
         <div>
           <Button
             onClick={handlePrevClick}
