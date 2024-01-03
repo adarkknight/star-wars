@@ -1,8 +1,8 @@
 const Navbar = () => {
   return (
-    <div className="navbar bg-yellow-300">
+    <div className="navbar bg-yellow-300 justify-center">
       <button className="btn btn-ghost text-xl font-bold">
-        Star Wars Data
+        STAR WARS DATA
       </button>
     </div>
   );

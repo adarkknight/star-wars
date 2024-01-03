@@ -53,7 +53,7 @@ const PlanetsTable = () => {
 
   return (
     <>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto grid grid-flow-row">
         <table className="table table-xs">
           {/* head */}
           <thead>
