@@ -1,4 +1,4 @@
-import PlanetsTable from "./PlanetsTable";
+import PlanetsTable from "./components/PlanetsTable";
 import Heading from "./components/Heading";
 import LinkGrid from "./components/LinkGrid";
 import Navbar from "./components/Navbar";

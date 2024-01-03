@@ -15,9 +15,9 @@ interface Data<T> {
   results: T;
 }
 
-import Button from "./components/Button";
+import Button from "./Button";
 import { useState, useCallback } from "react";
-import { useFetch } from "./hooks/fetchData";
+import { useFetch } from "../hooks/fetchData";
 
 export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
   const response = await fetch(url);
