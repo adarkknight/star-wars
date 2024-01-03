@@ -3,18 +3,18 @@ import DataLinkCardContainer from "./DataLinkCardContainer";
 
 const LinkGrid = () => {
   const linkNames = [
-    "Films",
-    "People",
-    "Planets",
-    "Species",
-    "Starships",
-    "Vehicles",
+    { name: "Films", route: "/films" },
+    { name: "People", route: "/people" },
+    { name: "Planets", route: "/planets" },
+    { name: "Species", route: "/Species" },
+    { name: "Starships", route: "/starships" },
+    { name: "Vehicles", route: "/vehicles" },
   ];
   return (
     <div>
       <DataLinkCardContainer>
         {linkNames.map((link) => (
-          <DataLinkCard title={link} />
+          <DataLinkCard title={link.name} route={link.route} />
         ))}
       </DataLinkCardContainer>
     </div>
