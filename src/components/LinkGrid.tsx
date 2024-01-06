@@ -6,7 +6,7 @@ const LinkGrid = () => {
     { name: "Films", route: "/films" },
     { name: "People", route: "/people" },
     { name: "Planets", route: "/planets" },
-    { name: "Species", route: "/Species" },
+    { name: "Species", route: "/species" },
     { name: "Starships", route: "/starships" },
     { name: "Vehicles", route: "/vehicles" },
   ];
