@@ -6,6 +6,7 @@ import LinkGrid from "./components/LinkGrid";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import SpeciesTable from "./components/SpeciesTable";
+import StarshipsTable from "./components/StarshipsTable";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/films" element={<Films />} />
         <Route path="/people" element={<People />} />
         <Route path="/species" element={<SpeciesTable />} />
+        <Route path="/starships" element={<StarshipsTable />} />
         <Route path="/" element={<LinkGrid />} />
       </Routes>
     </>
