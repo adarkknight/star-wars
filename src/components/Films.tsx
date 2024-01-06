@@ -15,8 +15,8 @@ interface Data<T> {
 import Button from "./Button";
 import { useState, useCallback } from "react";
 import { useFetch } from "../hooks/fetchData";
-
 import DataLinkCardContainer from "./DataLinkCardContainer";
+
 export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
   const response = await fetch(url);
   if (!response.ok) {
