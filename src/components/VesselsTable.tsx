@@ -1,4 +1,4 @@
-interface Starships {
+interface Vessels {
   name: string;
   model: string;
   manufacturer: string;
@@ -17,6 +17,10 @@ interface Data<T> {
   results: T;
 }
 
+interface Props {
+  path: string;
+}
+
 import Button from "./Button";
 import { useState, useCallback } from "react";
 import { useFetch } from "../hooks/fetchData";
@@ -30,11 +34,11 @@ export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
 };
 const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
 
-const StarshipsTable = () => {
-  const [url, setUrl] = useState(`${baseUrl}starships`);
-  const makeRequest = useCallback(() => fetchData<Starships[]>(url), [url]);
+const VesselsTable = ({ path }: Props) => {
+  const [url, setUrl] = useState(`${baseUrl}${path}`);
+  const makeRequest = useCallback(() => fetchData<Vessels[]>(url), [url]);
 
-  const { isFetching, error, data } = useFetch<Data<Starships[]>>(makeRequest);
+  const { isFetching, error, data } = useFetch<Data<Vessels[]>>(makeRequest);
 
   const handlePrevClick = async () => {
     if (data?.previous) {
@@ -56,7 +60,6 @@ const StarshipsTable = () => {
     <>
       <div className="overflow-x-auto grid grid-flow-row">
         <table className="table table-xs">
-          {/* head */}
           <thead>
             <tr>
               <th>Name</th>
@@ -72,24 +75,22 @@ const StarshipsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.results.map((starship) => (
+            {data?.results.map((Vessel) => (
               <tr>
-                <td key={starship.name}>{starship.name} </td>
-                <td key={starship.model}>{starship.model}</td>
-                <td key={starship.manufacturer}>{starship.manufacturer}</td>
-                <td key={starship.cost_in_credits}>
-                  {starship.cost_in_credits}
+                <td key={Vessel.name}>{Vessel.name} </td>
+                <td key={Vessel.model}>{Vessel.model}</td>
+                <td key={Vessel.manufacturer}>{Vessel.manufacturer}</td>
+                <td key={Vessel.cost_in_credits}>{Vessel.cost_in_credits}</td>
+                <td key={Vessel.length}>{Vessel.length}</td>
+                <td key={Vessel.max_atmosphering_speed}>
+                  {Vessel.max_atmosphering_speed}
                 </td>
-                <td key={starship.length}>{starship.length}</td>
-                <td key={starship.max_atmosphering_speed}>
-                  {starship.max_atmosphering_speed}
+                <td key={Vessel.crew}>{Vessel.crew}</td>
+                <td key={Vessel.passengers}>{Vessel.passengers}</td>
+                <td key={Vessel.hyperdrive_rating}>
+                  {Vessel.hyperdrive_rating}
                 </td>
-                <td key={starship.crew}>{starship.crew}</td>
-                <td key={starship.passengers}>{starship.passengers}</td>
-                <td key={starship.hyperdrive_rating}>
-                  {starship.hyperdrive_rating}
-                </td>
-                <td key={starship.starship_class}>{starship.starship_class}</td>
+                <td key={Vessel.starship_class}>{Vessel.starship_class}</td>
               </tr>
             ))}
           </tbody>
@@ -115,4 +116,4 @@ const StarshipsTable = () => {
   );
 };
 
-export default StarshipsTable;
+export default VesselsTable;
