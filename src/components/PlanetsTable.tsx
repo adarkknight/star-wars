@@ -55,7 +55,6 @@ const PlanetsTable = () => {
     <>
       <div className="overflow-x-auto grid grid-flow-row">
         <table className="table table-xs">
-          {/* head */}
           <thead>
             <tr>
               <th>Name</th>

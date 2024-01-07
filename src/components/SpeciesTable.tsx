@@ -29,8 +29,6 @@ const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
 const SpeciesTable = () => {
   const [url, setUrl] = useState(`${baseUrl}species`);
   const makeRequest = useCallback(() => fetchData<Species[]>(url), [url]);
-  const [disabled, setDisabled] = useState(false);
-
   const { isFetching, error, data } = useFetch<Data<Species[]>>(makeRequest);
 
   const handlePrevClick = async () => {

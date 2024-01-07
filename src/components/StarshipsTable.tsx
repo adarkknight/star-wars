@@ -33,7 +33,6 @@ const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
 const StarshipsTable = () => {
   const [url, setUrl] = useState(`${baseUrl}starships`);
   const makeRequest = useCallback(() => fetchData<Starships[]>(url), [url]);
-  const [disabled, setDisabled] = useState(false);
 
   const { isFetching, error, data } = useFetch<Data<Starships[]>>(makeRequest);
 

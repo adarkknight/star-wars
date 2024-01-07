@@ -29,7 +29,6 @@ const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
 const Films = () => {
   const [url, setUrl] = useState(`${baseUrl}films`);
   const makeRequest = useCallback(() => fetchData<Films[]>(url), [url]);
-  const [disabled, setDisabled] = useState(false);
 
   const { isFetching, error, data } = useFetch<Data<Films[]>>(makeRequest);
 

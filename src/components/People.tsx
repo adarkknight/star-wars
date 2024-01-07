@@ -27,8 +27,6 @@ const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
 const People = () => {
   const [url, setUrl] = useState(`${baseUrl}people`);
   const makeRequest = useCallback(() => fetchData<People[]>(url), [url]);
-  const [disabled, setDisabled] = useState(false);
-
   const { isFetching, error, data } = useFetch<Data<People[]>>(makeRequest);
 
   const handlePrevClick = async () => {
