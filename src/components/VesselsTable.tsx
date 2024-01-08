@@ -24,6 +24,7 @@ interface Props {
 import Button from "./Button";
 import { useState, useCallback } from "react";
 import { useFetch } from "../hooks/fetchData";
+import Heading from "./Heading";
 
 export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
   const response = await fetch(url);
@@ -37,7 +38,7 @@ const baseUrl = import.meta.env.VITE_SWAPI_BASE_URL;
 const VesselsTable = ({ path }: Props) => {
   const [url, setUrl] = useState(`${baseUrl}${path}`);
   const makeRequest = useCallback(() => fetchData<Vessels[]>(url), [url]);
-
+  console.log("this is path", path);
   const { isFetching, error, data } = useFetch<Data<Vessels[]>>(makeRequest);
 
   const handlePrevClick = async () => {
@@ -58,6 +59,7 @@ const VesselsTable = ({ path }: Props) => {
 
   return (
     <>
+      <Heading heading={path === "/starships" ? "Starships" : "Vehicles"} />
       <div className="overflow-x-auto grid grid-flow-row">
         <table className="table table-xs">
           <thead>

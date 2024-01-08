@@ -16,6 +16,7 @@ interface Data<T> {
 }
 
 import Button from "./Button";
+import Heading from "./Heading";
 import { useState, useCallback } from "react";
 import { useFetch } from "../hooks/fetchData";
 
@@ -53,6 +54,7 @@ const PlanetsTable = () => {
 
   return (
     <>
+      <Heading heading="Planets" />
       <div className="overflow-x-auto grid grid-flow-row">
         <table className="table table-xs">
           <thead>

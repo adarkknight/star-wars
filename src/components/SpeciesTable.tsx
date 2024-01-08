@@ -16,6 +16,7 @@ interface Data<T> {
 import Button from "./Button";
 import { useState, useCallback } from "react";
 import { useFetch } from "../hooks/fetchData";
+import Heading from "./Heading";
 
 export const fetchData = async <T = object,>(url: string): Promise<Data<T>> => {
   const response = await fetch(url);
@@ -49,9 +50,9 @@ const SpeciesTable = () => {
 
   return (
     <>
+      <Heading heading="Species" />
       <div className="overflow-x-auto grid grid-flow-row">
         <table className="table table-xs">
-          {/* head */}
           <thead>
             <tr>
               <th>Name</th>
